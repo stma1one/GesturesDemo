@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:demo.ViewModels"
+             x:Class="demo.Views.GrowPage" Title="Grow Plant Page">
+    <ContentPage.BindingContext>
+        <local:GrowPageViewModel></local:GrowPageViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <CollectionView x:Name="itemsCol" ItemsSource="{Binding Items}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" HorizontalItemSpacing="10"
+                                     VerticalItemSpacing="10"
+                                     Span="2"></GridItemsLayout>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding ImgSource}" HeightRequest="80" WidthRequest="80">
+                            <Image.GestureRecognizers>
+                                <DragGestureRecognizer DragStartingCommand="{Binding Path=BindingContext.DragStartCmd,Source={x:Reference itemsCol}}" DragStartingCommandParameter="{Binding .}" ></DragGestureRecognizer>
+                            </Image.GestureRecognizers> 
+                          
+                           
+                        </Image>
+                                                     
+                               
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Frame>
+                <Image x:Name="TrashImg" Source="{Binding Img}" HeightRequest="80" WidthRequest="80">
+                   
+              </Image>
+                <Frame.GestureRecognizers>
+                    <DropGestureRecognizer DropCommand="{Binding Dropcmd}"></DropGestureRecognizer>
+                    <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding TapCommand}"></TapGestureRecognizer>
+                </Frame.GestureRecognizers>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
